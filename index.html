@@ -42,7 +42,7 @@ nav.sidebar{width:320px;background:var(--panel);border-right:1px solid var(--bor
 <video id="main-player" controls preload="none"></video>
 </div>
 <div class="controls">
-<button class="btn" onclick="changeVideo(-1)">&#8592; Anterior</button>
+<button class="btn" id="btn-auto" onclick="toggleAuto()" style="background:#553300;">AUTO OFF</button><button class="btn" onclick="changeVideo(-1)">&#8592; Anterior</button>
 <button class="btn" onclick="changeVideo(1)">Siguiente &#8594;</button>
 </div>
 </main>
@@ -161,7 +161,7 @@ function changeVideo(dir){
 var next=currentIndex+dir;
 if(next>=0&&next<flatPlaylist.length)loadVideo(next);
 }
-window.onload=init;
+var autoPlay=false;function toggleAuto(){autoPlay=!autoPlay;var btn=document.getElementById('btn-auto');btn.textContent=autoPlay?'AUTO ON':'AUTO OFF';btn.style.background=autoPlay?'#335500':'#553300';} window.onload=init;
 </script>
 </body>
 </html>
