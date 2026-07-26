@@ -150,7 +150,7 @@ var video=flatPlaylist[currentIndex];
 var player=document.getElementById('main-player');
 player.src=video.url;
 player.load();
-player.onended=function(){if(autoPlay)changeVideo(1);};if(autoPlay){player.play().catch(function(){});}
+player.onended=function(){if(autoPlay){changeVideo(1);setTimeout(function(){document.getElementById('main-player').play().catch(function(){});},500);}};
 document.getElementById('display-title').textContent=video.title;
 document.getElementById('display-counter').textContent='Episodio '+(currentIndex+1)+' de '+flatPlaylist.length;
 document.querySelectorAll('.video-item').forEach(function(el){el.classList.remove('playing');});
