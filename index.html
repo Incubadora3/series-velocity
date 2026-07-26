@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SERIES VELOCITY</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a1628;--panel:#0d1f3a;--accent:#e8a020;--text:#e8e8e8;--border:rgba(255,255,255,0.07);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;overflow:hidden;}
+nav.sidebar{width:320px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;}
+.sidebar-header{padding:20px;border-bottom:1px solid var(--border);text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--accent);}
+.course-header{padding:15px 20px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--accent);background:rgba(0,0,0,0.2);border-bottom:1px solid var(--border);}
+.course-header:hover{background:rgba(232,160,32,0.1);}
+.chapter-list{display:none;background:rgba(0,0,0,0.3);}
+.chapter-list.active{display:block;}
+.video-item{padding:10px 25px;cursor:pointer;font-size:0.8rem;color:#aaa;border-bottom:1px solid rgba(255,255,255,0.02);}
+.video-item:hover{color:#fff;background:#112240;}
+.video-item.playing{color:var(--accent);background:#152a4a;font-weight:bold;border-left:3px solid var(--accent);}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.topbar{padding:15px 25px;background:var(--panel);border-bottom:1px solid var(--border);flex-shrink:0;}
+.topbar-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#fff;}
+.topbar-counter{font-size:0.7rem;color:#556;margin-top:2px;}
+.video-wrapper{flex:1;background:#000;min-height:0;}
+#main-player{width:100%;height:100%;background:#000;}
+.controls{padding:20px;display:flex;justify-content:center;gap:15px;background:transparent;flex-shrink:0;}
+.btn{padding:12px 35px;border-radius:50px;border:none;background:#22334d;color:#fff;cursor:pointer;font-weight:bold;}
+.btn:hover{background:var(--accent);}
+</style>
+</head>
+<body>
+<button onclick="var s=document.getElementById('sidebar');s.style.display=s.style.display==='none'?'':'none'" style="position:fixed;top:10px;left:10px;z-index:999;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;">☰</button>
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-header">SERIES VELOCITY</div>
+<div id="accordion-menu"></div>
+</nav>
+<main class="main">
+<div id="display-title" class="topbar-title">Selecciona un episodio</div>
+<div id="display-counter" class="topbar-counter"></div>
+<div class="video-wrapper">
+<video id="main-player" controls preload="none"></video>
+</div>
+<div class="controls">
+<button class="btn" onclick="changeVideo(-1)">&#8592; Anterior</button>
+<button class="btn" onclick="changeVideo(1)">Siguiente &#8594;</button>
+</div>
+</main>
+<script>
+var courses=[
+{name:"Los Ganadores",base:"https://archive.org/download/SERIE01-Los-Ganadores/",chapters:[
+{title:"Episodio 1",file:"S01E01-Los_Ganadores.mp4"},
+{title:"Episodio 2",file:"S01E02-Los_Ganadores.mp4"},
+{title:"Episodio 3",file:"S01E03-Los_Ganadores.mp4"},
+{title:"Episodio 4",file:"S01E04-Los_Ganadores.mp4"}
+]},
+{name:"Pensar Dos Veces",base:"https://archive.org/download/s-02-e-02-pensar-dos-veces/",chapters:[
+{title:"Episodio 1",file:"S02E01-Pensar_Dos_Veces.mp4"},
+{title:"Episodio 2",file:"S02E02-Pensar_Dos_Veces.mp4"},
+{title:"Episodio 3",file:"S02E03-Pensar_Dos_Veces.mp4"}
+]},
+{name:"Ideas Transformadoras",base:"https://archive.org/download/s-03-e-03-ideas-transformadoras/",chapters:[
+{title:"Episodio 1",file:"S03E01-Ideas_Transformadoras.mp4"},
+{title:"Episodio 2",file:"S03E02-Ideas_Transformadoras.mp4"},
+{title:"Episodio 3",file:"S03E03-Ideas_Transformadoras.mp4"},
+{title:"Episodio 4",file:"S03E04-Ideas_Transformadoras.mp4"}
+]},
+{name:"El Club 10X",base:"https://archive.org/download/s-04-e-01-el-club-10-x/",chapters:[
+{title:"Episodio 1",file:"S04E01-El_Club_10X.mp4"},
+{title:"Episodio 2",file:"S04E02-El_Club_10X.mp4"},
+{title:"Episodio 3",file:"S04E03-El_Club_10X.mp4"}
+]},
+{name:"Nueva Productividad",base:"https://archive.org/download/s-05-e-03-nueva-productividad/",chapters:[
+{title:"Episodio 1",file:"S05E01-Nueva_Productividad.mp4"},
+{title:"Episodio 2",file:"S05E02-Nueva_Productividad.mp4"},
+{title:"Episodio 3",file:"S05E03-Nueva_Productividad.mp4"}
+]},
+{name:"La Maquina de las Ideas",base:"https://archive.org/download/s-06-e-04-la-maquina-de-las-ideas/",chapters:[
+{title:"Episodio 1",file:"S06E01-La_Maquina_de_las_Ideas.mp4"},
+{title:"Episodio 2",file:"S06E02-La_Maquina_de_las_Ideas.mp4"},
+{title:"Episodio 3",file:"S06E03-La_Maquina_de_las_Ideas.mp4"},
+{title:"Episodio 4",file:"S06E04-La_Maquina_de_las_Ideas.mp4"}
+]},
+{name:"El Mentalista",base:"https://archive.org/download/s-07-e-03-el-mentalista/",chapters:[
+{title:"Episodio 1",file:"S07E01-El_Mentalista.mp4"},
+{title:"Episodio 2",file:"S07E02-El_Mentalista.mp4"},
+{title:"Episodio 3",file:"S07E03-El_Mentalista.mp4"}
+]},
+{name:"El Estratega",base:"https://archive.org/download/s-08-e-03-el-estratega/",chapters:[
+{title:"Episodio 1",file:"S08E01-El_Estratega.mp4"},
+{title:"Episodio 2",file:"S08E02-El_Estratega.mp4"},
+{title:"Episodio 3",file:"S08E03-El_Estratega.mp4"}
+]},
+{name:"Serie 09",base:"https://archive.org/download/s-09-e-02-serie-09/",chapters:[
+{title:"Episodio 1",file:"S09E01-Serie_09.mp4"},
+{title:"Episodio 2",file:"S09E02-Serie_09.mp4"}
+]},
+{name:"El Viaje Exponencial",base:"https://archive.org/download/s-10-e-01-el-viaje-exponencial/",chapters:[
+{title:"Episodio 1",file:"S10E01-El_Viaje_Exponencial.mp4"}
+]},
+{name:"El Arte de la Venta Sutil",base:"https://archive.org/download/s-11-e-01-el-arte-de-la-venta-sutil/",chapters:[
+{title:"Episodio 1",file:"S11E01-El_Arte_de_la_Venta_Sutil.mp4"}
+]},
+{name:"El Camino de la Excelencia",base:"https://archive.org/download/s-12-e-04-el-camino-de-la-excelencia/",chapters:[
+{title:"Episodio 1",file:"S12E01-El_Camino_de_la_Excelencia.mp4"},
+{title:"Episodio 2",file:"S12E02-El_Camino_de_la_Excelencia.mp4"},
+{title:"Episodio 3",file:"S12E03-El_Camino_de_la_Excelencia.mp4"},
+{title:"Episodio 4",file:"S12E04-El_Camino_de_la_Excelencia.mp4"}
+]},
+{name:"52 Perlas",base:"https://archive.org/download/s-13-e-21-52-perlas/",chapters:[
+{title:"Episodio 1",file:"S13E01-52_Perlas.mp4"}
+]},
+{name:"Alquimia Mental",base:"https://archive.org/download/s-14-e-01-alquimia-mental/",chapters:[
+{title:"Episodio 1",file:"S14E01-Alquimia_Mental.mp4"}
+]},
+{name:"Codigo Maestro",base:"https://archive.org/download/s-15-e-02-codigo-maestro/",chapters:[
+{title:"Episodio 1",file:"S15E01-Codigo_Maestro.mp4"},
+{title:"Episodio 2",file:"S15E02-Codigo_Maestro.mp4"}
+]},
+{name:"Maestros de la Persuasion",base:"https://archive.org/download/s-16-e-02-maestros-de-la-persuasion/",chapters:[
+{title:"Episodio 1",file:"S16E01-Maestros_de_la_Persuasion.mp4"},
+{title:"Episodio 2",file:"S16E02-Maestros_de_la_Persuasion.mp4"}
+]},
+{name:"El Catalista",base:"https://archive.org/download/s-17-e-01-el-catalista/",chapters:[
+{title:"Episodio 1",file:"S17E01-El_Catalista.mp4"}
+]}
+];
+var flatPlaylist=[],currentIndex=0;
+function init(){
+var menu=document.getElementById('accordion-menu');
+courses.forEach(function(course,cIdx){
+var chaptersHTML=course.chapters.map(function(ch){
+var globalIdx=flatPlaylist.length;
+flatPlaylist.push({title:ch.title,url:course.base+ch.file});
+return '<div class="video-item" id="item-'+globalIdx+'" onclick="loadVideo('+globalIdx+')">'+ch.title+'</div>';
+}).join('');
+var section=document.createElement('div');
+section.innerHTML='<div class="course-header" onclick="toggleCourse('+cIdx+')">'+course.name+'</div><div class="chapter-list" id="course-'+cIdx+'">'+chaptersHTML+'</div>';
+menu.appendChild(section);
+});
+loadVideo(0);
+}
+function toggleCourse(idx){
+var list=document.getElementById('course-'+idx);
+list.classList.toggle('active');
+}
+function loadVideo(index){
+currentIndex=index;
+var video=flatPlaylist[currentIndex];
+var player=document.getElementById('main-player');
+player.src=video.url;
+player.load();
+player.onended=function(){changeVideo(1);};
+document.getElementById('display-title').textContent=video.title;
+document.getElementById('display-counter').textContent='Episodio '+(currentIndex+1)+' de '+flatPlaylist.length;
+document.querySelectorAll('.video-item').forEach(function(el){el.classList.remove('playing');});
+var activeItem=document.getElementById('item-'+index);
+if(activeItem){activeItem.classList.add('playing');activeItem.scrollIntoView({block:'nearest',behavior:'smooth'});}
+}
+function changeVideo(dir){
+var next=currentIndex+dir;
+if(next>=0&&next<flatPlaylist.length)loadVideo(next);
+}
+window.onload=init;
+</script>
+</body>
+</html>
