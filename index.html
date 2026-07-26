@@ -42,7 +42,8 @@ nav.sidebar{width:320px;background:var(--panel);border-right:1px solid var(--bor
 <video id="main-player" controls preload="none"></video>
 </div>
 <div class="controls">
-<button class="btn" id="btn-auto" onclick="toggleAuto()" style="background:#553300;">AUTO OFF</button><button class="btn" onclick="changeVideo(-1)">&#8592; Anterior</button>
+<button class="btn" id="btn-auto" onclick="toggleAuto()" style="background:#553300;">AUTO OFF</button>
+<button class="btn" onclick="changeVideo(-1)">&#8592; Anterior</button>
 <button class="btn" onclick="changeVideo(1)">Siguiente &#8594;</button>
 </div>
 </main>
@@ -84,31 +85,57 @@ var courses=[
 {name:"El Mentalista",base:"https://archive.org/download/s-07-e-03-el-mentalista/",chapters:[
 {title:"Episodio 1",file:"S07E01-El_Mentalista.mp4"},
 {title:"Episodio 2",file:"S07E02-El_Mentalista.mp4"},
-{title:"Episodio 3",file:"S07E03-El_Mentalista.mp4"}
+{title:"Episodio 3",file:"S07E03-El_Mentalista.mp4"},
+{title:"Episodio 4",file:"S07E04-El_Mentalista.mp4"},
+{title:"Episodio 5",file:"S07E05-El_Mentalista.mp4"},
+{title:"Episodio 6",file:"S07E06-El_Mentalista.mp4"},
+{title:"Episodio 7",file:"S07E07-El_Mentalista.mp4"},
+{title:"Episodio 8",file:"S07E08-El_Mentalista.mp4"}
 ]},
 {name:"El Estratega",base:"https://archive.org/download/s-08-e-03-el-estratega/",chapters:[
 {title:"Episodio 1",file:"S08E01-El_Estratega.mp4"},
 {title:"Episodio 2",file:"S08E02-El_Estratega.mp4"},
-{title:"Episodio 3",file:"S08E03-El_Estratega.mp4"}
+{title:"Episodio 3",file:"S08E03-El_Estratega.mp4"},
+{title:"Episodio 4",file:"S08E04-El_Estratega.mp4"}
 ]},
-{name:"Serie 09",base:"https://archive.org/download/s-09-e-02-serie-09/",chapters:[
+{name:"Modelos Mentales",base:"https://archive.org/download/s-09-e-02-serie-09/",chapters:[
 {title:"Episodio 1",file:"S09E01-Serie_09.mp4"},
-{title:"Episodio 2",file:"S09E02-Serie_09.mp4"}
+{title:"Episodio 2",file:"S09E02-Serie_09.mp4"},
+{title:"Episodio 3",file:"S09E03-Serie_09.mp4"},
+{title:"Episodio 4",file:"S09E04-Serie_09.mp4"}
 ]},
 {name:"El Viaje Exponencial",base:"https://archive.org/download/s-10-e-01-el-viaje-exponencial/",chapters:[
-{title:"Episodio 1",file:"S10E01-El_Viaje_Exponencial.mp4"}
+{title:"Episodio 1",file:"S10E01-El_Viaje_Exponencial.mp4"},
+{title:"Episodio 3",file:"S10E03-El_Viaje_Exponencial.mp4"},
+{title:"Episodio 4",file:"S10E04-El_Viaje_Exponencial.mp4"}
 ]},
 {name:"El Arte de la Venta Sutil",base:"https://archive.org/download/s-11-e-01-el-arte-de-la-venta-sutil/",chapters:[
-{title:"Episodio 1",file:"S11E01-El_Arte_de_la_Venta_Sutil.mp4"}
+{title:"Episodio 1",file:"S11E01-El_Arte_de_la_Venta_Sutil.mp4"},
+{title:"Episodio 2",file:"S11E02-El_Arte_de_la_Venta_Sutil.mp4"},
+{title:"Episodio 3",file:"S11E03-El_Arte_de_la_Venta_Sutil.mp4"},
+{title:"Episodio 4",file:"S11E04-El_Arte_de_la_Venta_Sutil.mp4"}
 ]},
 {name:"El Camino de la Excelencia",base:"https://archive.org/download/s-12-e-04-el-camino-de-la-excelencia/",chapters:[
 {title:"Episodio 1",file:"S12E01-El_Camino_de_la_Excelencia.mp4"},
 {title:"Episodio 2",file:"S12E02-El_Camino_de_la_Excelencia.mp4"},
 {title:"Episodio 3",file:"S12E03-El_Camino_de_la_Excelencia.mp4"},
-{title:"Episodio 4",file:"S12E04-El_Camino_de_la_Excelencia.mp4"}
+{title:"Episodio 4",file:"S12E04-El_Camino_de_la_Excelencia.mp4"},
+{title:"Episodio 5",file:"S12E05-El_Camino_de_la_Excelencia.mp4"}
 ]},
 {name:"52 Perlas",base:"https://archive.org/download/s-13-e-21-52-perlas/",chapters:[
-{title:"Episodio 1",file:"S13E01-52_Perlas.mp4"}
+{title:"Episodio 1",file:"S13E01-52_Perlas.mp4"},
+{title:"Episodio 2",file:"S13E02-52_Perlas.mp4"},
+{title:"Episodio 3",file:"S13E03-52_Perlas.mp4"},
+{title:"Episodio 4",file:"S13E04-52_Perlas.mp4"},
+{title:"Episodio 5",file:"S13E05-52_Perlas.mp4"},
+{title:"Episodio 6",file:"S13E06-52_Perlas.mp4"},
+{title:"Episodio 7",file:"S13E07-52_Perlas.mp4"},
+{title:"Episodio 8",file:"S13E08-52_Perlas.mp4"},
+{title:"Episodio 9",file:"S13E09-52_Perlas.mp4"},
+{title:"Episodio 10",file:"S13E10-52_Perlas.mp4"},
+{title:"Episodio 11",file:"S13E11-52_Perlas.mp4"},
+{title:"Episodio 12",file:"S13E12-52_Perlas.mp4"},
+{title:"Episodio 13",file:"S13E13-52_Perlas.mp4"}
 ]},
 {name:"Alquimia Mental",base:"https://archive.org/download/s-14-e-01-alquimia-mental/",chapters:[
 {title:"Episodio 1",file:"S14E01-Alquimia_Mental.mp4"}
@@ -119,7 +146,10 @@ var courses=[
 ]},
 {name:"Maestros de la Persuasion",base:"https://archive.org/download/s-16-e-02-maestros-de-la-persuasion/",chapters:[
 {title:"Episodio 1",file:"S16E01-Maestros_de_la_Persuasion.mp4"},
-{title:"Episodio 2",file:"S16E02-Maestros_de_la_Persuasion.mp4"}, {title:"Episodio 3",file:"S16E03-Maestros_de_la_Persuasion.mp4"}, {title:"Episodio 4",file:"S16E04-Maestros_de_la_Persuasion.mp4"}, {title:"Episodio 5",file:"S16E05-Maestros_de_la_Persuasion.mp4"}
+{title:"Episodio 2",file:"S16E02-Maestros_de_la_Persuasion.mp4"},
+{title:"Episodio 3",file:"S16E03-Maestros_de_la_Persuasion.mp4"},
+{title:"Episodio 4",file:"S16E04-Maestros_de_la_Persuasion.mp4"},
+{title:"Episodio 5",file:"S16E05-Maestros_de_la_Persuasion.mp4"}
 ]},
 {name:"El Catalista",base:"https://archive.org/download/s-17-e-01-el-catalista/",chapters:[
 {title:"Episodio 1",file:"S17E01-El_Catalista.mp4"}
@@ -161,7 +191,9 @@ function changeVideo(dir){
 var next=currentIndex+dir;
 if(next>=0&&next<flatPlaylist.length)loadVideo(next);
 }
-var autoPlay=false;function toggleAuto(){autoPlay=!autoPlay;var btn=document.getElementById('btn-auto');btn.textContent=autoPlay?'AUTO ON':'AUTO OFF';btn.style.background=autoPlay?'#335500':'#553300';} window.onload=init;
+var autoPlay=false;
+function toggleAuto(){autoPlay=!autoPlay;var btn=document.getElementById('btn-auto');btn.textContent=autoPlay?'AUTO ON':'AUTO OFF';btn.style.background=autoPlay?'#335500':'#553300';}
+window.onload=init;
 </script>
 </body>
 </html>
